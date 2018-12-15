@@ -1,0 +1,292 @@
+(function() {
+  function solve(input) {
+    input = massageInput(input);
+    let output;
+
+    let duplets = 0;
+    let triplets = 0;
+
+    for(let i=0; i<input.length; i++){
+        let [hasDuplet, hasTriplet] = checkReptn(input[i]);
+        duplets += hasDuplet;
+        triplets += hasTriplet;
+    }
+
+    output = duplets * triplets;
+    return output;
+  }
+
+  function checkReptn(str) {
+    let alphaMap = {};
+    let hasDuplet = false;
+    let hasTriplet = false;
+    let arr = str.split("");
+    for(let i=0; i<arr.length; i++){
+        if(alphaMap[arr[i]]) alphaMap[arr[i]] += 1
+        else alphaMap[arr[i]] = 1
+    }
+    for(key in alphaMap) {
+	   if(alphaMap[key] === 2) hasDuplet = true;
+	   if(alphaMap[key] === 3) hasTriplet = true;
+    }
+    return [hasDuplet, hasTriplet];
+  }
+
+  function massageInput(input) {
+    return input.split("\n")
+  }
+
+  const INPUT = `vtnihorkulbfvjcyzmsjgdxplw
+vtnihorvujbfejcyzmsqgdlpaw
+vtnihoriulbzejcyzmsrgdxpaw
+vtsihowkulbfejcyzmszgdxpaw
+vtnizorkunbfejcyzmsqgdypaw
+vtnihorkdlbfojcyzmsqgdfpaw
+vtpioorkulbfejcysmsqgdxpaw
+vtnvhorkulbfhjcyzmsqgdipaw
+vtrihorkylbaejcyzmsqgdxpaw
+vtnigorkulbfejcyzmszgjxpaw
+rtnihorkklbfejcyzmslgdxpaw
+vtnihorkqlbfejcyzmsqgmppaw
+vgnisorkulbfejcyzmsqgdkpaw
+atnihorkulbfejcyzmdbgdxpaw
+vtnihorkulbfejcezmsqqixpaw
+vtnihorkucbfejcxzmsqgdypaw
+vtnihorkulxfajcyzmsqgyxpaw
+vbnihorkulbfescyzmsqgdxpae
+vanshorkulbfejcyzjsqgdxpaw
+vtnihoukulbfejcyzmwqgdxpbw
+vtndhorkulbfejcyxmgqgdxpaw
+ztnihlrkupbfejcyzmsqgdxpaw
+vtoihkrkulbfejhyzmsqgdxpaw
+vtnihorkalbiejcyzmsqgdxeaw
+vtnihorhulcfejcyzqsqgdxpaw
+vtnshotkulbfejcyzmsqvdxpaw
+vtnihoryulbfejcyzmsqgpspaw
+vtnihorkukbfmjcyzmsqgdxpcw
+vtnihorkulbfejcybmsqgdupxw
+vlnihorkulbfejcyzmsqgdmpac
+vtnihorkulbfejcezmfqgdkpaw
+vpnihorkulbfejcyzmsqfdxyaw
+vtnihorkulbjejcysmcqgdxpaw
+vdnihorkulffejcyzisqgdxpaw
+vtnihorkulkfsjcyzrsqgdxpaw
+vtnihorkulqfegoyzmsqgdxpaw
+vtnihorkulbfeyhyzgsqgdxpaw
+vnnihorkulbfejcyzmdqgdxpfw
+vtnihorkulstejcyzmsqgdxpak
+vtnphorkujbfejcczmsqgdxpaw
+vtpihorkulbfejcyzmskgdxiaw
+vtnihorkulbfejcdzmxqsdxpaw
+vtnihorgulbfticyzmsqgdxpaw
+veniuorkulbfejcyzmsqgdmpaw
+vhnihorkclbfejyyzmsqgdxpaw
+vtnihorkulbfejcyzmrqgsrpaw
+dtnihorkzlhfejcyzmsqgdxpaw
+vtnizorkulbfejcyzhsqgdxdaw
+vtnihohkulbfejcybmpqgdxpaw
+vtnihbrzulbfejcyzmsqgdppaw
+stnihorkulmfejcyzmsqgdxeaw
+vtnihorkulbfejmgzwsqgdxpaw
+vtnihcrkulbfnjdyzmsqgdxpaw
+vxxihorkulbfejcyzmsqddxpaw
+vtnhhorkulbfejcyzmsqgdpiaw
+vtnihoakulbfvjcyzmmqgdxpaw
+vtbbhorkulbfejcyqmsqgdxpaw
+vtnihnukulbfejcxzmsqgdxpaw
+vteihorgulkfejcyzmsqgdxpaw
+vbnihorkulbfejcyzmsqgdxpmt
+itnihorkulbuejcyzmsqgdxpxw
+vtnfhqrkulbfejcwzmsqgdxpaw
+vtnihorkubbfedcyzmsqpdxpaw
+rtnihorkulhfejcyzmsqgdxpah
+vtnihorzulbfejcyqmsqqdxpaw
+vtnihorkulbfeecyzmsqgdcgaw
+vtniuorkulbfejpyzmsqxdxpaw
+vtnicorkilbfajcyzmsqgdxpaw
+vtzihorkulbfejcyzmsqgaxpkw
+vtnihomkulbfejcyzmsqgvmpaw
+vznihockulbfejcyzmsqgdjpaw
+vtqmhorkulhfejcyzmsqgdxpaw
+ptnihorkulbfsjcyzbsqgdxpaw
+ftnihorkulbfejcepmsqgdxpaw
+vtnhhorkulbfejyyzxsqgdxpaw
+vtnihorkulbfejcyzmsiwdxpxw
+vtnikorkulbfejvyzmnqgdxpaw
+vtnihorkulbgejoyzmsqhdxpaw
+vtnihorkulbwejqylmsqgdxpaw
+vtnihorkdlbfejcyzwsqgdrpaw
+vtnihorkulbfojcyzmtugdxpaw
+vtnihonkulbtejcyzxsqgdxpaw
+vtnihorkulrfevcyzmsqgdxpcw
+vtnioorkulbfejcynmsqgdxpad
+vtnihorkudffejcyzhsqgdxpaw
+vtnihorkelbfejcqzmsqgdxbaw
+jtnihokkulbfejcyzmsqgdrpaw
+ztnihorrulbfejcyzlsqgdxpaw
+vtwiforkulbfejcyzmsqpdxpaw
+vtnihopvulbfejcyzmsqgzxpaw
+vtnihzrkulafejcyzmsqgdxpaj
+vtnixoekulbfejcyzmsqgdxpak
+vtnihorkulbfejxyzmsqgdxhlw
+vtnihorkulbfwjcyzmmqcdxpaw
+vtnihorkulbfejcywmsdgdxzaw
+vtnihorkulbfejfyzmsqggxuaw
+vtnihnrkurbfejcyzmsqggxpaw
+vtuihorkulbkejcyzmsqgdxpww
+vtnihoriuljfejcyzssqgdxpaw
+vtnihorkulyftjcezmsqgdxpaw
+vtnihorkklbfeccyzmsqgdppaw
+vtnihorkulbfdpcyzmsqgdxpcw
+vtnihqrkulgfejcyzmeqgdxpaw
+vtnihorktlbfejdyzmswgdxpaw
+vinihzrkulbfeacyzmsqgdxpaw
+vtuihorkupbfejcyzmsqgdxplw
+vtnihorkulbfcjcyzmlqgdxpsw
+vtnihorkllbfejcyzmsqgdxvak
+qtnihorkulbfdjcyzusqgdxpaw
+vtniherkulbhejcyzmsqgzxpaw
+vtnzhorgulbfejcyzmsqgdxpew
+vtnihoykulhfjjcyzmsqgdxpaw
+vtnihookulyfejcyzmsqgdxqaw
+jtnihorkulbfejcyzmssgdxpaq
+vtnicorkulwfejcyzmsxgdxpaw
+wtnihorkuubfejcyzmsqgdxpam
+vtnihorkuggfejcyzmsdgdxpaw
+vtnihurkulbfgjcyzmsqrdxpaw
+ptnihorkuabfejcyzmsqgqxpaw
+vtrihoykulbfejcyzmsqgdxpam
+otnihorkulbfejcyzmpqgdxpjw
+vtyihorkulbfejdyznsqgdxpaw
+vtnihornulbfrjcizmsqgdxpaw
+vtnihfrlulbfejcyzmsqgdxpah
+atnihorkulbfejcyossqgdxpaw
+vtnihorkuljfejcyzysqgdxpow
+vtniyorkulbfejcyzmsqgdxbaz
+venihorkulbfejctzmqqgdxpaw
+vtrihorkulbfejcyjmsqgdxpfw
+venitorkulbfexcyzmsqgdxpaw
+vtbihorkulbfejcyzmwqgdxpyw
+vtnihorkuubfejxyzmsqgdxkaw
+vtqihorkulbnejcyzmsqgdxnaw
+vteihorkurbfejcyzmsqwdxpaw
+vtgjhorkxlbfejcyzmsqgdxpaw
+ytniworkulbfejcyzmsqgdxptw
+vtnihorkulbfejcyzmsvgixhaw
+dtnihorkusbfejcyzmsqidxpaw
+vtnihurkulbfejcdzmkqgdxpaw
+vtgihorkulbfejcyzhsqgdxpaf
+vtniudrkulbfeacyzmsqgdxpaw
+vtnihorkulbfejcyemsokdxpaw
+vtnihorkulbfejcyjmwqgdxpag
+vtnihorpulbfetcpzmsqgdxpaw
+ctnzhorkulbfejcyzmfqgdxpaw
+vanihorkuhbwejcyzmsqgdxpaw
+vtnihonkurbfejcyzvsqgdxpaw
+vtnihgrkulbcejcbzmsqgdxpaw
+vtnihorkutbfeacyzmsqcdxpaw
+vtniaorkuhbfqjcyzmsqgdxpaw
+vtnihorkylbfozcyzmsqgdxpaw
+vtnihorkulbfejcypmfqgdxpbw
+vtrphonkulbfejcyzmsqgdxpaw
+vtnihorkulbdejcywmsqydxpaw
+vtnikorkulbfejvyzknqgdxpaw
+vznihorkulbfejcyzmsqbdxpam
+vtmghorkulbfejcyzmsqghxpaw
+vtnihorkulbfejcyzmshglxpfw
+vtiihorkulbfejcjzmsqgdxoaw
+rtnihorkulbfejcuzmsqgdxpow
+vtnthoikulbuejcyzmsqgdxpaw
+vtniholkulbfcjcyzmsqgdxpvw
+vdnihorkulbbejcyzmsqgdxdaw
+ntnihorkulbfojcyzmsqgdxzaw
+vtniqorkulbfejcyzklqgdxpaw
+vtnihorkulhfejcpzmsqgdxprw
+vhnihorkulqfejcyzmsqgdapaw
+vtnihorkolafejcyzmsqadxpaw
+vtnihorkulbpejcyzasqgtxpaw
+vtnihgiyulbfejcyzmsqgdxpaw
+dtnihorkulbffjcyzmsqgdfpaw
+vtnvhorhulbfejcyzmpqgdxpaw
+vtniholkulbfebcyzmsqgnxpaw
+vunihorkulbbejcyznsqgdxpaw
+vtnihorkulbfehcyomsqgaxpaw
+vtnihorkllboejcyzmsigdxpaw
+vtnihwrkulbfejcywmsqgdxiaw
+vtnoherkulbfbjcyzmsqgdxpaw
+vtnbhorkulbfejcyzmsqgkxpaa
+vtnihorkilbfdjxyzmsqgdxpaw
+vtnfhorkuvbfejcyzmsqgixpaw
+vtnyhorkulbpejcyzmsqgdxjaw
+vtnihomkalbfejcyzmqqgdxpaw
+vtnihorkulbfejcybmsqgjxvaw
+vtnihorkulbfgjcnzmsqbdxpaw
+vtnihorkulbfejcyzmpqgsxpap
+lmnihorkulbfejcizmsqgdxpaw
+vtmahkrkulbfejcyzmsqgdxpaw
+vtnihorkulbfujcyrcsqgdxpaw
+vtnzhorkulbfejcyzjvqgdxpaw
+vtnicorkulbfejmyzmsqgdxvaw
+vtnyhojkulbfejcyzmsngdxpaw
+vtnuhorkulbfejcyzlsqgdxpmw
+vtnihorkulufejcgzmtqgdxpaw
+vtnihfrkulbfejnyzmsigdxpaw
+vtnzhorkulbdejnyzmsqgdxpaw
+vttihorkulbfejcyzmyqgdxwaw
+vknihorkulbfejnylmsqgdxpaw
+vtnihorkulbfejcfrmsqgdxpaz
+vtnchormulbfejcyzmsqgdopaw
+vtnihorkulbfebcyzusqgdxpam
+jtnihorwulbfejcyzksqgdxpaw
+ctnihodkutbfejcyzmsqgdxpaw
+vonihorkultfejcyzmsqgixpaw
+vtnihorkulbqejcyzmsqgdypcw
+vfnihorkulbfbjcyzmsqcdxpaw
+utnihorkulbfejcyqmsqgdxraw
+vtnihorkjllfejcyzmskgdxpaw
+vtnihorkulbfejcyvisqgdapaw
+vtnihorkclzfejcyzmsqvdxpaw
+vtnihwrkvlffejcyzmsqgdxpaw
+vtnihlrkulbfejcrzmsqydxpaw
+vtnihorkulbfbjtysmsqgdxpaw
+vtnihorkulbfxjcepmsqgdxpaw
+ttnihorkulbfejpyzmsqgdxpaz
+vtnwhorkolbfejcdzmsqgdxpaw
+vtnihorkulbfejcyzdsqgdxppn
+vtnwporkulbfercyzmsqgdxpaw
+vtnshorxuvbfejcyzmsqgdxpaw
+vtnihxrkulbfejcyomsqfdxpaw
+vtnwhorkrljfejcyzmsqgdxpaw
+vqnihorkulbfejcyzmtqgdxpuw
+vtnnhorkulbfhrcyzmsqgdxpaw
+vtuihwrkulbfedcyzmsqgdxpaw
+vtgbhorkucbfejcyzmsqgdxpaw
+vtnitorkulbfejcozmsqgdkpaw
+otnihomkulbfejcyzmsqgdxhaw
+vtnihgrkulbfrjcyzmsqxdxpaw
+vtnihorkulbfujcyzmsqghxpzw
+vsnihopkhlbfejcyzmsqgdxpaw
+vtniherkulbfejcyzmpzgdxpaw
+vtnxhorkulbfejcszmsqgdxcaw
+vtnihorkulbfejctzmsxadxpaw
+vtnihorkslbmejcyzmsqgnxpaw
+vtnwhorgulbfegcyzmsqgdxpaw
+vtnihorkulbfsjcyzmsqgdxiau
+vtnihorkulbfejcyzmsqldxpbj
+vtnghorkulbfmjcyzmsqgdxpaa
+vtnihorkulbfetcyzmpqudxpaw
+vtnbhorkulbfejcyzmsqgdupyw
+ntnihorhulbfejwyzmsqgdxpaw
+vjnihorkulbfejcyqosqgdxpaw
+vtiihorbulbfejcbzmsqgdxpaw
+vtnihorkulbfejxlzmpqgdxpaw
+vtnihorkolbfejcyfmsqgdxraw
+vtnihqrrulbfedcyzmsqgdxpaw
+ctnihorkulbfejcyzmsqgdxpsy
+vtnihorkulbfkjcezmspgdxpaw
+ztnihorkulbmcjcyzmsqgdxpaw
+vinihorkulbfedcyzmsqgdxpau`;
+
+  const output = solve(INPUT);
+  console.log(output);
+})();
